@@ -13,6 +13,9 @@ kcolormap('indigo','darkblue','royalblue','white','darkorange','firebrick','maro
 subplot(2,1,2)
 yyaxis left
 plot(piv.tc(150:end), piv.Cl(150:end), 'DisplayName', 'Cl')
+hold on
+area([piv.tc(280), piv.tc(340)], [2, 2])
+area([piv.tc(430), piv.tc(470)], [2, 2])
 axis([piv.tc(150), piv.tc(end), 0, 1.8])
 xlabel('t_{c} [s]');
 ylabel('Cl');
