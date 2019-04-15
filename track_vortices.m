@@ -1,0 +1,62 @@
+[~,~,xwc,ywc]=thewing(piv.alpha(300));
+n_LEV = [280, 370; 430, 470; 547, 600];
+n_TEV = [380, 440; 500, 550; 610, 680];
+
+close all,
+
+colors = [0.49, 0.18, 0.56; 0.93, 0.69, 0.13; 0.00, 0.45, 0.74; 0.47, 0.67, 0.19; 0.30, 0.75, 0.93; 0.86, 0.33, 0.10];
+
+figure, 
+subplot(2,2,1:2)
+axis([x(1,1) x(1,end) y(1,1) y(end,1)]./param.c)
+xlabel('x/c')
+ylabel('y/c')
+legend show
+hold on,
+
+subplot(2,2,3)
+xlabel('t_c')
+ylabel('x/c')
+hold on 
+plot([0, 3], [0, 3]*param.U*.7116, '-k','DisplayName', 'dx/dt = U/1.4')
+legend show
+legend('autoupdate', 'off')
+hold on 
+
+subplot(2,2,4)
+xlabel('t_c')
+ylabel('y/c')
+plot([0, 1.5], [0, 1.5]*param.U*(-.1406)+0.3, '-k','DisplayName', 'dx/dt = -U/7')
+legend show
+legend('autoupdate', 'off')
+hold on
+
+
+for n=1:3
+    LEV_display_name = strcat('LEV', num2str(n));
+    TEV_display_name = strcat('TEV', num2str(n));
+    
+    Delta_t_TEV = n_TEV(n,2)-n_TEV(n,1);
+    Delta_t_LEV = n_LEV(n,2)-n_LEV(n,1);
+    
+    subplot(2,2,1:2)
+    plot(gamma2.centroidsCW(n_LEV(n,1):n_LEV(n,2),1), gamma2.centroidsCW(n_LEV(n,1):n_LEV(n,2),2), 'DisplayName', LEV_display_name, 'color', colors(2*n-1,:))
+    plot(gamma2.centroidsCCW(n_TEV(n,1):n_TEV(n,2),1), gamma2.centroidsCCW(n_TEV(n,1):n_TEV(n,2),2), 'DisplayName', TEV_display_name, 'color', colors(2*n,:))
+    
+    subplot(2,2,3)
+    plot(piv.tc(76:76+Delta_t_LEV), gamma2.centroidsCW(n_LEV(n,1):n_LEV(n,2),1), 'DisplayName', LEV_display_name, 'color', colors(2*n-1,:))
+%     plot(piv.tc(76:76+Delta_t_TEV), gamma2.centroidsCCW(n_TEV(n,1):n_TEV(n,2),1), 'DisplayName', TEV_display_name, 'color', colors(2*n,:))
+    
+    subplot(2,2,4)
+    plot(piv.tc(76:76+Delta_t_LEV), gamma2.centroidsCW(n_LEV(n,1):n_LEV(n,2),2), 'DisplayName', LEV_display_name, 'color', colors(2*n-1,:))
+%     plot(piv.tc(76:76+Delta_t_TEV), gamma2.centroidsCCW(n_TEV(n,1):n_TEV(n,2),2), 'DisplayName', TEV_display_name, 'color', colors(2*n,:))
+end
+
+
+
+subplot(2,2, 1:2)
+legend('autoupdate', 'off')
+fill(xwc,ywc,'k')
+subplot(2,2,3)
+xlabel('t_c')
+ylabel('x/c')
