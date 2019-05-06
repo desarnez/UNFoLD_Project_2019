@@ -12,7 +12,7 @@ for n = 1:size(u_comp,3)
 %     gam2_tmp = gamma2.gam2(:,:,n)
     gam2_tmp = gamma2g(u_comp(:,:,n), v_comp(:,:,n), disk_size);
     gamma2.regionsCW(1,n) = findCWVortex(gam2_tmp,x,y, param.c, 6);
-    gamma2.regionsCCW(1,n) = findCCWVortex(gam2_tmp,x,y, param.c);
+    gamma2.regionsCCW(1,n) = findCCWVortex(gam2_tmp,x,y, param.c, 6);
     gamma2.gam2(:,:,n) = gam2_tmp;
 end
 [gamma2.circulationCW, gamma2.circulationCCW] = circulation(gamma2, o_comp, param, x, y)

@@ -7,15 +7,19 @@ MOV = struct('cdata',[],'colormap',[]);
 MOV(size(gamma2.gam2,3)-150+1).cdata = [];
 MOV(size(gamma2.gam2,3)-150+1).colormap  =[];
 
-figure('units','normalized','outerposition',[0 0 0.7 1], 'innerposition', [0, 0, 0.6, 1.5])
+figure('units','normalized','outerposition',[0 0 1 1])
 kcolormap('indigo','darkblue','royalblue','white','darkorange','firebrick','maroon');
 
-subplot(2,1,2)
+subplot(3,1,3)
 yyaxis left
 plot(piv.tc(150:end), piv.Cl(150:end), 'DisplayName', 'Cl')
+legend show
+legend('autoupdate', 'off')
 hold on
-area([piv.tc(280), piv.tc(340)], [2, 2])
-area([piv.tc(430), piv.tc(470)], [2, 2])
+for n = 1:3
+    area([piv.tc(n_LEV(n,1)), piv.tc(n_LEV(n,2))], [2, 2], 'facealpha', 0.2, 'linestyle', 'none')
+    area([piv.tc(n_TEV(n,1)), piv.tc(n_TEV(n,2))], [2, 2],'facecolor', 'blue', 'facealpha', 0.2, 'linestyle', 'none')
+end
 axis([piv.tc(150), piv.tc(end), 0, 1.8])
 xlabel('t_{c} [s]');
 ylabel('Cl');
@@ -24,10 +28,11 @@ hold on
 
 yyaxis right
 ylabel('Circulation');
+legend('autoupdate','on')
 plot(piv.tc(150:end), abs(gamma2.circulationCCW(150:end)),'-b', 'DisplayName', 'TEV Circulation');
 plot(piv.tc(150:end), abs(gamma2.circulationCW(150:end)),'-g', 'DisplayName', 'LEV Circulation');
-legend('Cl', 'TEV Circulation', 'LEV Circulation', 'Location', 'NorthWest', 'autoupdate', 'off')
-legend('boxoff')
+legend show
+legend('Location', 'NorthWest'),legend('boxoff')
 yyaxis left
 p = plot([piv.tc(150), piv.tc(150)], [0, 1.8], '-r', 'LineWidth', 2, 'DisplayName', 'time');
 
@@ -37,7 +42,7 @@ for n=150:size(gamma2.gam2,3)
     [~,~,xwc,ywc]=thewing(piv.alpha(n));
     toplot=o_comp(:,:,n)/param.U*param.c;
     
-    subplot(2,1,1)
+    subplot(3,1,1:2)
     hold off
     [~,h]=contourf(x/param.c,y/param.c,toplot,[nanmin2(toplot),limits(1):step:limits(2),nanmax2(toplot)]);
     set(h,'linestyle','none')
@@ -60,7 +65,7 @@ for n=150:size(gamma2.gam2,3)
        
     
     %%     Cl plot
-    subplot(2,1,2)
+    subplot(3,1,3)
     yyaxis left
     hold on
     yyaxis left

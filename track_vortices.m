@@ -1,6 +1,6 @@
 [~,~,xwc,ywc]=thewing(piv.alpha(300));
-n_LEV = [280, 340; 430, 470; 547, 600];
-n_TEV = [380, 440; 500, 550; 610, 680];
+n_LEV = [280, 370; 430, 470; 547, 600];
+n_TEV = [381, 440; 490, 560; 610, 680];
 
 close all,
 
@@ -8,7 +8,7 @@ colors = [0.49, 0.18, 0.56; 0.93, 0.69, 0.13; 0.00, 0.45, 0.74; 0.47, 0.67, 0.19
 
 figure,
 subplot(3,2,1:2)
-axis([x(1,1) x(1,end) y(1,1) y(end,1)]./param.c)
+% axis([x(1,1) x(1,end) y(1,1) y(end,1)]./param.c)
 xlabel('x/c')
 ylabel('y/c')
 legend show
@@ -26,6 +26,7 @@ hold on
 subplot(3,2,4)
 title('Trailing Edge Vortex')
 hold on
+% plot([0, 2], [0, 2]*param.U/2+0.5, '-k', 'DisplayName', 'frac{dx}{dt} = U/2')
 
 subplot(3,2,5)
 xlabel('t_c')
@@ -69,4 +70,5 @@ end
 subplot(3,2, 1:2)
 legend('autoupdate', 'off')
 fill(xwc,ywc,'k')
+axis equal
 

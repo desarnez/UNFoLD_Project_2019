@@ -15,7 +15,7 @@ for k = 1:2
     end
     
     circulation = zeros(1,size(region,2));
-    for n=150:size(region,2)
+    for n=1:size(region,2)
         p1 = region(1,n);
         
         % Create a grid around region p1

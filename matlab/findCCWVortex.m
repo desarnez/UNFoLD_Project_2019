@@ -1,4 +1,4 @@
-function region = findCCWVortex(M,x,y,c)
+function region = findCCWVortex(M,x,y,c, treshold)
 max_val = max(M, [], 'all');
 levels  = linspace(2/pi, max_val, 20);
 C = contourc(x(1,:)/c, y(:,1)/c, M,levels);
@@ -71,9 +71,9 @@ for i = 1:length(centeredRegions)-1
                 % region
                 crossing_p1 = intersect(p1,j); % Check the intersection between j & p1
                 
-                if crossing_p1.NumRegions == 1 && nb_lowerRegions < 3
+                if crossing_p1.NumRegions == 1 && nb_lowerRegions < treshold
                     nb_lowerRegions = nb_lowerRegions + 1;
-                elseif crossing_p1.NumRegions == 1 && nb_lowerRegions >= 3
+                elseif crossing_p1.NumRegions == 1 && nb_lowerRegions >= treshold
                     centeredRegions_new = centeredRegions(i+1:end);
                     centeredLevels_new = centeredLevels(i+1:end);
                     break
